@@ -19,12 +19,12 @@ timezone: Asia/Shanghai
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
-title: Tiefsee's Blog                          # the main title
+title: Tiefsee                          # the main title
 
-tagline: A personal blog   # it will display as the sub-title
+tagline: ずっと探してる　いつか辿り着く   # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
-  What will there be?
+  A minimal, responsive, and powerful Jekyll theme for presenting professional writing.
 
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
 url: 'tiefsee5037008.github.io'
@@ -32,14 +32,14 @@ url: 'tiefsee5037008.github.io'
 github:
   username: Tiefsee5037008             # change to your github username
 
-twitter:
-  username: twitter_username            # change to your twitter username
+# twitter:
+#   username: twitter_username            # change to your twitter username
 
 social:
   # Change to your full name.
   # It will be displayed as the default author of the posts and the copyright owner in the Footer
   name: Tiefsee5037008
-  email: example@domain.com             # change to your email address
+  email: ej6rkndz4@mozmail.com             # change to your email address
   links:
     # The first element serves as the copyright owner's link
     # - https://twitter.com/username      # change to your twitter homepage
@@ -88,24 +88,24 @@ avatar: https://avatars.githubusercontent.com/u/53612869
 toc: true
 
 comments:
-  active:         # The global switch for posts comments, e.g., 'disqus'.  Keep it empty means disable
+  active: utterances   # The global switch for posts comments, e.g., 'disqus'.  Keep it empty means disable
   # The active options are as follows:
   disqus:
     shortname:    # fill with the Disqus shortname. › https://help.disqus.com/en/articles/1717111-what-s-a-shortname
   # utterances settings › https://utteranc.es/
   utterances:
-    repo:         # <gh-username>/<repo>
-    issue_term:   # < url | pathname | title | ...>
+    repo: Tiefsee5037008/Tiefsee5037008.github.io        # <gh-username>/<repo>
+    issue_term: title # < url | pathname | title | ...>
   # Giscus options › https://giscus.app
   giscus:
-    repo:              # <gh-username>/<repo>
-    repo_id:
-    category:
-    category_id:
-    mapping:           # optional, default to 'pathname'
-    input_position:    # optional, default to 'bottom'
-    lang:              # optional, default to the value of `site.lang`
-    reactions_enabled: # optional, default to the value of `1`
+    repo: Tiefsee5037008/Tiefsee5037008.github.io        # <gh-username>/<repo>
+    repo_id: R_kgDOIxZpZw
+    category: Announcements
+    category_id: DIC_kwDOIxZpZ84CTlh4
+    mapping: title          # optional, default to 'pathname'
+    input_position: top     # optional, default to 'bottom'
+    lang:                   # optional, default to the value of `site.lang`
+    reactions_enabled:      # optional, default to the value of `1`
 
 # Self-hosted static assets, optional › https://github.com/cotes2020/chirpy-static-assets
 assets:
