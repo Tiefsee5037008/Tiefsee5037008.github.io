@@ -3,15 +3,9 @@
 -
   type: github
   icon: 'fab fa-github'
-<<<<<<< HEAD
 # -
 #   type: twitter
 #   icon: 'fab fa-twitter'
-=======
--
-  type: twitter
-  icon: 'fab fa-twitter'
->>>>>>> f45d1c3bd0ed60b5f771bf4dffdd7ee3a491e57e
 -
   type: email
   icon: 'fas fa-envelope'
@@ -34,10 +28,7 @@
 #   type: stack-overflow
 #   icon: 'fab fa-stack-overflow'
 #   url:  ''                  # Fill with your stackoverflow homepage
-<<<<<<< HEAD
 -
   type: ctftime
   icon: 'fas fa-flag'
   url:  'https://ctftime.org/user/143578'
-=======
->>>>>>> f45d1c3bd0ed60b5f771bf4dffdd7ee3a491e57e
