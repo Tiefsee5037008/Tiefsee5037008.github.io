@@ -4,7 +4,7 @@ category: [Writeup, Contests]
 tags: [reverse, python, ctf]
 ---
 # Challenge
-[python2.py]({% link /assets/python2.py %})
+[python2.py]({% link /assets/files/python2.py %})
 # Solution
 Before start:
 
