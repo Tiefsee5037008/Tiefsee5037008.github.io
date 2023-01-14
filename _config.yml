@@ -14,19 +14,30 @@ lang: en
 
 
 # Change to your timezone › http://www.timezoneconverter.com/cgi-bin/findzone/findzone
+<<<<<<< HEAD
 timezone: Asia/Shanghai
+=======
+timezone:
+>>>>>>> f45d1c3bd0ed60b5f771bf4dffdd7ee3a491e57e
 
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
+<<<<<<< HEAD
 title: Tiefsee                          # the main title
 
 tagline: ずっと探してる　いつか辿り着く   # it will display as the sub-title
+=======
+title: Chirpy                          # the main title
+
+tagline: A text-focused Jekyll theme   # it will display as the sub-title
+>>>>>>> f45d1c3bd0ed60b5f771bf4dffdd7ee3a491e57e
 
 description: >-                        # used by seo meta and the atom feed
   A minimal, responsive, and powerful Jekyll theme for presenting professional writing.
 
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
+<<<<<<< HEAD
 url: 'tiefsee5037008.github.io'
 
 github:
@@ -34,10 +45,20 @@ github:
 
 # twitter:
 #   username: twitter_username            # change to your twitter username
+=======
+url: ''
+
+github:
+  username: github_username             # change to your github username
+
+twitter:
+  username: twitter_username            # change to your twitter username
+>>>>>>> f45d1c3bd0ed60b5f771bf4dffdd7ee3a491e57e
 
 social:
   # Change to your full name.
   # It will be displayed as the default author of the posts and the copyright owner in the Footer
+<<<<<<< HEAD
   name: Tiefsee5037008
   email: ej6rkndz4@mozmail.com             # change to your email address
   links:
@@ -46,6 +67,15 @@ social:
       - https://github.com/Tiefsee5037008       # change to your github homepage
     # Uncomment below to add more social links
       - https://ctftime.org/user/143578
+=======
+  name: your_full_name
+  email: example@domain.com             # change to your email address
+  links:
+    # The first element serves as the copyright owner's link
+    - https://twitter.com/username      # change to your twitter homepage
+    - https://github.com/username       # change to your github homepage
+    # Uncomment below to add more social links
+>>>>>>> f45d1c3bd0ed60b5f771bf4dffdd7ee3a491e57e
     # - https://www.facebook.com/username
     # - https://www.linkedin.com/in/username
 
@@ -82,18 +112,27 @@ theme_mode:   # [light|dark]
 img_cdn:
 
 # the avatar on sidebar, support local or CORS resources
+<<<<<<< HEAD
 avatar: https://avatars.githubusercontent.com/u/53612869
+=======
+avatar:
+>>>>>>> f45d1c3bd0ed60b5f771bf4dffdd7ee3a491e57e
 
 # boolean type, the global switch for ToC in posts.
 toc: true
 
 comments:
+<<<<<<< HEAD
   active: utterances   # The global switch for posts comments, e.g., 'disqus'.  Keep it empty means disable
+=======
+  active:         # The global switch for posts comments, e.g., 'disqus'.  Keep it empty means disable
+>>>>>>> f45d1c3bd0ed60b5f771bf4dffdd7ee3a491e57e
   # The active options are as follows:
   disqus:
     shortname:    # fill with the Disqus shortname. › https://help.disqus.com/en/articles/1717111-what-s-a-shortname
   # utterances settings › https://utteranc.es/
   utterances:
+<<<<<<< HEAD
     repo: Tiefsee5037008/Tiefsee5037008.github.io        # <gh-username>/<repo>
     issue_term: title # < url | pathname | title | ...>
   # Giscus options › https://giscus.app
@@ -106,6 +145,20 @@ comments:
     input_position: top     # optional, default to 'bottom'
     lang:                   # optional, default to the value of `site.lang`
     reactions_enabled:      # optional, default to the value of `1`
+=======
+    repo:         # <gh-username>/<repo>
+    issue_term:   # < url | pathname | title | ...>
+  # Giscus options › https://giscus.app
+  giscus:
+    repo:              # <gh-username>/<repo>
+    repo_id:
+    category:
+    category_id:
+    mapping:           # optional, default to 'pathname'
+    input_position:    # optional, default to 'bottom'
+    lang:              # optional, default to the value of `site.lang`
+    reactions_enabled: # optional, default to the value of `1`
+>>>>>>> f45d1c3bd0ed60b5f771bf4dffdd7ee3a491e57e
 
 # Self-hosted static assets, optional › https://github.com/cotes2020/chirpy-static-assets
 assets:
