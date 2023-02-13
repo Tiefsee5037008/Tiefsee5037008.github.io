@@ -1250,6 +1250,7 @@ int main(void) {
 
 ```
 #### Solution:
+Simple ret2text. Use `'\0'` to bypass `strcmp()` and get the address of `give_flag` branch using IDA(graph mode). The length of payload is the size of all stack variables plus 4(to reach `rip`). The following exploit script can be constructed:
 ```py
 from pwn import *
 # context(log_level='debug',os='linux',arch='amd64')
