@@ -51,7 +51,7 @@ b'lactf{b4by_h1t_m3_0ne_m0r3_t1m3}lactf{b4by_h1t_m3_0ne_m0'
 ### rolling in the mud
 
 #### Challenge:
-![rolling in the mud.png]({% link /assets/files/rolling in the mud.png %})
+![rolling in the mud.png](https://github.com/uclaacm/lactf-archive/blob/master/2023/crypto/rolling-in-the-mud/cipher.png)
 #### Solution:
 Roll the picture by 180 degree and read by the rule of [pigpen cipher](https://en.wikipedia.org/wiki/Pigpen_cipher)
 ```plaintext

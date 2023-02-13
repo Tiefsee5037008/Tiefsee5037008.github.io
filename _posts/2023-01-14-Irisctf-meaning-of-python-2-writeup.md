@@ -4,7 +4,7 @@ category: [Writeup, Contests]
 tags: [reverse, python, ctf]
 ---
 # Challenge
-[python2.py]({% link /assets/files/python2.py %})
+[python2.py](https://github.com/IrisSec/IrisCTF-2023-Challenges/blob/main/meaningofpython2/python2.py)
 # Solution
 With the syntax highlighting, we can see that there is a huge byte literal(begin with `b'`), meaning that this may be the core content of the program.
 
