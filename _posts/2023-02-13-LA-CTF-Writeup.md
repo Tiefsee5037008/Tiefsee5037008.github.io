@@ -1257,7 +1257,7 @@ So we use the filter: ip.flags==0 in wireshark and export them into a new file, 
 
 ### college-tour
 #### Challenge:
-[college-tour.lac.tf](college-tour.lac.tf)
+[college-tour.lac.tf](https://college-tour.lac.tf/)
 #### Solution:
 F12 to view the source code:
 ```html
