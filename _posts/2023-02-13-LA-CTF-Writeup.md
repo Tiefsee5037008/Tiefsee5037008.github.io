@@ -948,10 +948,42 @@ int __cdecl main(int argc, const char **argv, const char **envp)
 }
 ```
 #### Solution:
+The first one is easy, you just need to send "six";
+
+The second is also easy, just a basic linear equation. If you don't want to solve it, use z3-solver and type:
+```py
+import z3
+v4 = z3.Int('v4')
+s = z3.Solver()
+s.add(42 * (v4 + 88) == 561599850)
+if s.check() == z3.sat:
+	v4 = s.model().eval(v4).as_long()
+	print(v4)
+```
+it will tell you the answer.
+
+The third one is the main part of this challenge. First, export the value of `mod` and the data of `enc`(it's located at the .data section, with the address of 0x3080 and ends with a zero byte `0x00`). You can use hex editors like `010editor` or command `dd` to do this. Then use z3-solver again to solve the equations:
+```py
+enc = bytearray.fromhex("""0E C9 9D B8 26 83 26 41 74 E9 26 A5 83 94 0E 63 37 37 37""")
+n = len(enc)
+mod = 0xFD
+import z3
+flag = [z3.Int(f'flag_{i}') for i in range(n)]
+s = z3.Solver()
+s.add([17*flag[i]%mod==enc[i] for i in range(n)])
+if s.check() == z3.sat:
+	flag = bytes([s.model().eval(flag[i]).as_long() for i in range(n)]).decode()
+	print(flag)
+else:
+	print('unsat')
+```
+finally, send them to remote server by `nc` and getflag:
 ```plaintext
 six
 13371337
 it's a log cabin!!!
+
+# lactf{im_n0t_qu1t3_sur3_th4ts_h0w_m4th_w0rks_bu7_0k}
 ```
 
 ### ctfd-plus
