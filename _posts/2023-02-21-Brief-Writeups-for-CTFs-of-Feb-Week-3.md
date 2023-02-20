@@ -1,7 +1,7 @@
 ---
 title: Brief Writeups for CTFs of Feb Week 3
 category: [Writeup, Contests] 
-tags: [ctf]
+tags: [ctf,crypto,reverse,pwn]
 ---
 # Incognito 4.0
 
